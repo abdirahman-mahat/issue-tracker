@@ -3,13 +3,13 @@ document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
 
 //function to get the even from submit and to save issues to the local storage
 function saveIssue(e) {
-  var issueDesc = document.getElementById('issueDescInput').value;
-  var issueSeverity = document.getElementById('issueSeverityInput').value;
-  var issueAssignedTo = document.getElementById('issueAssignedToInput').value;
-  var issueId = chance.guid();
-  var issueStatus = 'Open';
+  let issueDesc = document.getElementById('issueDescInput').value;
+  let issueSeverity = document.getElementById('issueSeverityInput').value;
+  let issueAssignedTo = document.getElementById('issueAssignedToInput').value;
+  let issueId = chance.guid();
+  let issueStatus = 'Open';
 
-  var issue = {
+  const issue = {
     id: issueId,
     description: issueDesc,
     severity: issueSeverity,
@@ -18,11 +18,11 @@ function saveIssue(e) {
   }
 
   if (localStorage.getItem('issues') == null) {
-    var issues = [];
+    let issues = [];
     issues.push(issue);
     localStorage.setItem('issues', JSON.stringify(issues));
   } else {
-    var issues = JSON.parse(localStorage.getItem('issues'));
+    let issues = JSON.parse(localStorage.getItem('issues'));
     issues.push(issue);
     localStorage.setItem('issues', JSON.stringify(issues));
   }
@@ -39,17 +39,17 @@ function saveIssue(e) {
 //which are available
 //and are stored in the browsers localstore.
 function fetchIssues() {
-  var issues = JSON.parse(localStorage.getItem('issues'));
-  var issuesListe = document.getElementById('issuesList');
+  let issues = JSON.parse(localStorage.getItem('issues'));
+  let issuesListe = document.getElementById('issuesList');
 
   issuesList.innerHTML = '';
 
-  for (var i = 0; i < issues.length; i++) {
-    var id = issues[i].id;
-    var desc = issues[i].description;
-    var severity = issues[i].severity;
-    var assignedTo = issues[i].assignedTo;
-    var status = issues[i].status;
+  for (let i = 0; i < issues.length; i++) {
+    let id = issues[i].id;
+    let desc = issues[i].description;
+    let severity = issues[i].severity;
+    let assignedTo = issues[i].assignedTo;
+    let status = issues[i].status;
 
     issuesList.innerHTML +=   '<div class="well">'+
                               '<h6>Issue ID: ' + id + '</h6>'+
