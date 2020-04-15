@@ -1,3 +1,40 @@
+//event handler which handles submit event from our form
+Document.getElementById('issueInputForm')
+
+//function to get the even from submit and to save issues to the local storage
+function saveIssue(e) {
+  let issueDesc = document.getElementById('issueDesc').value;
+  let issueimportance = document.getElementById('issueImp').value;
+  let issueAssignedTo = document.getElementById('issueAssd').value;
+  let issueId = chance.guid();
+  let issueStatus = 'Open';
+
+  const issue = {
+    id: issueId,
+    description: issueDesc,
+    importance: issueimportance,
+    assignedTo: issueAssignedTo,
+    status: issueStatus
+  }
+
+  if (localStorage.getItem('issues') == null) {
+    let issues = [];
+    issues.push(issue);
+    localStorage.setItem('issues', JSON.stringify(issues));
+  } else {
+    let issues = JSON.parse(localStorage.getItem('issues'));
+    issues.push(issue);
+    localStorage.setItem('issues', JSON.stringify(issues));
+  }
+
+  document.getElementById('issueInputForm').reset();
+
+  fetchIssues();
+
+  e.preventDefault();
+}
+
+
 //function to fetch the issues
 //which are available
 //and are stored in the browsers localstore.
@@ -23,9 +60,5 @@ function fetchIssues(){
                              '<a href="#" onclick="setStatusClosed(\''+id+'\')" class="btn btn-warning">Close</a> '+
                              '<a href="#" onclick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>'+
                              '</div>';
-
-
-
   }
-
 }
