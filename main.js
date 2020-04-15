@@ -1,28 +1,28 @@
 //event handler which handles submit event from our form
-Document.getElementById('issueInputForm')
+document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
 
 //function to get the even from submit and to save issues to the local storage
 function saveIssue(e) {
-  let issueDesc = document.getElementById('issueDesc').value;
-  let issueimportance = document.getElementById('issueImp').value;
-  let issueAssignedTo = document.getElementById('issueAssd').value;
-  let issueId = chance.guid();
-  let issueStatus = 'Open';
+  var issueDesc = document.getElementById('issueDescInput').value;
+  var issueSeverity = document.getElementById('issueSeverityInput').value;
+  var issueAssignedTo = document.getElementById('issueAssignedToInput').value;
+  var issueId = chance.guid();
+  var issueStatus = 'Open';
 
-  const issue = {
+  var issue = {
     id: issueId,
     description: issueDesc,
-    importance: issueimportance,
+    severity: issueSeverity,
     assignedTo: issueAssignedTo,
     status: issueStatus
   }
 
   if (localStorage.getItem('issues') == null) {
-    let issues = [];
+    var issues = [];
     issues.push(issue);
     localStorage.setItem('issues', JSON.stringify(issues));
   } else {
-    let issues = JSON.parse(localStorage.getItem('issues'));
+    var issues = JSON.parse(localStorage.getItem('issues'));
     issues.push(issue);
     localStorage.setItem('issues', JSON.stringify(issues));
   }
@@ -38,27 +38,27 @@ function saveIssue(e) {
 //function to fetch the issues
 //which are available
 //and are stored in the browsers localstore.
-function fetchIssues(){
-  let issues = JSON.parse(localStorage.getItem('issues'));
-  let issuesList = document.getElementById('issuesList');
+function fetchIssues() {
+  var issues = JSON.parse(localStorage.getItem('issues'));
+  var issuesListe = document.getElementById('issuesList');
 
-  issuesList.innerHtml = '';
+  issuesList.innerHTML = '';
 
-  for (let i = 0; i < issues.length; i++){
-    let id = issues[i].id;
-    let desc = issues[i].descrption;
-    let importance = issues[i].importance;
-    let assignedTo = issues[i].assignedTo;
-    let status = issues[i].status;
+  for (var i = 0; i < issues.length; i++) {
+    var id = issues[i].id;
+    var desc = issues[i].description;
+    var severity = issues[i].severity;
+    var assignedTo = issues[i].assignedTo;
+    var status = issues[i].status;
 
     issuesList.innerHTML +=   '<div class="well">'+
-                             '<h6>Issue ID: ' + id + '</h6>'+
-                             '<p><span class="label label-info">' + status + '</span></p>'+
-                             '<h3>' + desc + '</h3>'+
-                             '<p><span class="glyphicon glyphicon-time"></span> ' + importance + '</p>'+
-                             '<p><span class="glyphicon glyphicon-user"></span> ' + assignedTo + '</p>'+
-                             '<a href="#" onclick="setStatusClosed(\''+id+'\')" class="btn btn-warning">Close</a> '+
-                             '<a href="#" onclick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>'+
-                             '</div>';
+                              '<h6>Issue ID: ' + id + '</h6>'+
+                              '<p><span class="label label-info">' + status + '</span></p>'+
+                              '<h3>' + desc + '</h3>'+
+                              '<p><span class="glyphicon glyphicon-time"></span> ' + severity + '</p>'+
+                              '<p><span class="glyphicon glyphicon-user"></span> ' + assignedTo + '</p>'+
+                              '<a href="#" onclick="setStatusClosed(\''+id+'\')" class="btn btn-warning">Close</a> '+
+                              '<a href="#" onclick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>'+
+                              '</div>';
   }
 }
