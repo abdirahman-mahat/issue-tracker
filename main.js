@@ -35,6 +35,24 @@ function saveIssue(e) {
 }
 
 
+//function to change open issues to setStatusClosed
+function setStatusClosed(id) {
+  let issues = JSON.parse(localStorage.getItem('issues'));
+
+  for (let i = 0; i < issues.length; i++) {
+    if (issues[i].id == id) {
+      issues[i].status = 'Closed';
+    }
+  }
+
+  localStorage.setItem('issues', JSON.stringify(issues));
+
+  fetchIssues();
+}
+
+
+
+
 //function to fetch the issues
 //which are available
 //and are stored in the browsers localstore.
